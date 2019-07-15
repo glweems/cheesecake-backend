@@ -1,5 +1,5 @@
 {
-  "name": "typescript-express-starter",
+  "name": "cheat-day-cheesecake-backend",
   "version": "0.1.0",
   "description": "A starting point for Node.js express apps with TypeScript",
   "main": "src/server.js",
