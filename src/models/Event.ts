@@ -1,30 +1,46 @@
+/* eslint-disable no-shadow */
 import Model from '../db';
 
-export default class Event extends Model {
+class EventModel extends Model {
+  static tableName = 'events';
+
+  id: number;
+
   title: string;
 
   date: string;
 
   street: string;
 
+  city: string;
+
+  state: string;
+
+  zip: number;
+}
+
+class Event {
+  id: number;
+
+  title: string;
+
+  date: string;
+
   address: {
+    street: string;
+
     city: string;
+
     state: string;
+
     zip: number;
   };
 
-  static tableName = 'events';
+  static query = async (args: typeof Model.query.arguments) => {
+    const rows: EventModel[] = await EventModel.query(args);
 
-  static query(...args: any) {
-    const query = super.query(...args);
-    const formatEvent = (row: {
-      title: string;
-      date: string;
-      street: string;
-      city: string;
-      state: string;
-      zip: number;
-    }) => ({
+    const formatEvent = (row: EventModel) => ({
+      id: row.id,
       title: row.title,
       date: row.date,
       address: {
@@ -34,9 +50,12 @@ export default class Event extends Model {
         zip: row.zip
       }
     });
-    const formatEvents = (rows: any[]) => rows.map(row => formatEvent(row));
-    return query.runAfter((result: typeof Event[]) => {
-      return formatEvents(result);
-    });
-  }
+
+    const formatEvents = (rows: EventModel[]) =>
+      rows.map(row => formatEvent(row));
+
+    return formatEvents(rows);
+  };
 }
+
+export default Event;
