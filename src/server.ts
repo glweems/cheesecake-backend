@@ -1,54 +1,38 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable func-names */
-/**
- * Module dependencies.
- */
+/* eslint-disable no-console */
+
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as logger from 'morgan';
-import * as lusca from 'lusca';
 
-const debug = require('debug')('ts-express:app');
-
-const { error } = require('dotenv').config();
-
-if (error) {
-  debug(error);
-  throw error;
+interface Err extends Error {
+  status: number;
+  data?: Record<string, any>;
 }
 
-/**
- * Create Express server.
- */
 const app = express();
-
-/**
- * Express configuration.
- */
-
-/**
- * routes.
- */
 app.use('/', require('./router'));
+const debug = require('debug')('ts-express:app');
 
 // catch 404 and forward to error handler
-app.use(function(
+const notFoundHandler = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-) {
+) => {
   const err = new Error('Not Found') as Err;
   err.status = 404;
   next(err);
-});
+};
+
+app.use(notFoundHandler);
 
 // error handler
-app.use(function(
+const errorHandler = (
   err: Err,
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-) {
+) => {
   debug(err);
 
   // set locals, only providing error in development
@@ -61,6 +45,11 @@ app.use(function(
     message: err.message,
     data: err.data
   });
-});
+};
 
-module.exports = app;
+app.use(errorHandler);
+
+app.use('/', require('./router'));
+
+console.log(`Server Running on PORT: ${process.env.PORT}`);
+app.listen(process.env.PORT || 5000);

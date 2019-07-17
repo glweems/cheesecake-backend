@@ -36,7 +36,7 @@ class Event {
     zip: number;
   };
 
-  static query = async (args: typeof Model.query.arguments) => {
+  static query = async (args?: typeof Model.query.arguments) => {
     const rows: EventModel[] = await EventModel.query(args);
 
     const formatEvent = (row: EventModel) => ({
@@ -44,17 +44,16 @@ class Event {
       title: row.title,
       date: row.date,
       address: {
-        street: row.street,
         city: row.city,
+        street: row.street,
         state: row.state,
         zip: row.zip
       }
     });
 
-    const formatEvents = (rows: EventModel[]) =>
-      rows.map(row => formatEvent(row));
+    // const formatEvents = (rows: EventModel[]) =>
 
-    return formatEvents(rows);
+    return rows.map(row => formatEvent(row));
   };
 }
 

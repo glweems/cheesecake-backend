@@ -3,6 +3,11 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import * as Validator from 'validatorjs';
 
+interface Err extends Error {
+  status: number;
+  data?: Record<string, any>;
+}
+
 export const wrap = (fn: RequestHandler) => (
   req: Request,
   res: Response,
