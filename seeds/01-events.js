@@ -10,6 +10,14 @@ exports.seed = knex =>
           city: 'Denton',
           state: 'TX',
           zip: 76210
+        },
+        {
+          title: 'Denton Food Fest',
+          date: '08/05/2019',
+          street: 'Main street',
+          city: 'Denton',
+          state: 'TX',
+          zip: 76210
         }
       ])
     );

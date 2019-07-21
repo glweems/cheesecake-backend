@@ -1,6 +1,6 @@
 import Model from '../db';
 
-class EventModel extends Model {
+class MenuModel extends Model {
   static tableName = 'events';
 
   id: number;
@@ -36,9 +36,9 @@ class Event {
   };
 
   static query = async (args?: typeof Model.query.arguments) => {
-    const rows: EventModel[] = await EventModel.query(args);
+    const rows: MenuModel[] = await MenuModel.query(args);
 
-    const formatEvent = (row: EventModel) => ({
+    const formatEvent = (row: MenuModel) => ({
       id: row.id,
       title: row.title,
       date: row.date,
