@@ -10,4 +10,5 @@ const knex = Knex(config[env]);
 
 Model.knex(knex);
 
+export const db = knex;
 export default Model;

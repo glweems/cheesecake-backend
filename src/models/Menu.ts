@@ -1,57 +1,29 @@
-import Model from '../db';
+import { db } from '../db';
 
-class MenuModel extends Model {
-  static tableName = 'events';
-
+interface DbMenu {
   id: number;
-
-  title: string;
-
-  date: string;
-
-  street: string;
-
-  city: string;
-
-  state: string;
-
-  zip: number;
+  item: string;
 }
 
-class Event {
-  id: number;
-
-  title: string;
-
-  date: string;
-
-  address: {
-    street: string;
-
-    city: string;
-
-    state: string;
-
-    zip: number;
-  };
-
-  static query = async (args?: typeof Model.query.arguments) => {
-    const rows: MenuModel[] = await MenuModel.query(args);
-
-    const formatEvent = (row: MenuModel) => ({
-      id: row.id,
-      title: row.title,
-      date: row.date,
-      address: {
-        city: row.city,
-        street: row.street,
-        state: row.state,
-        zip: row.zip
-      }
-    });
-
-    return rows.map(row => formatEvent(row));
-  };
+interface DbFlavor {
+  item: number;
+  flavor: string;
+  color?: string;
 }
 
-export default Event;
+const get = async () => {
+  const items: DbMenu[] = await db('menu');
+
+  const flavors: DbFlavor[] = await db('flavors');
+
+  return items.map(({ id, item }: DbMenu) => {
+    return {
+      item,
+      flavors: flavors.filter((flavor: DbFlavor) => flavor.item === id)
+    };
+  });
+};
+
+export default {
+  get
+};
