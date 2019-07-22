@@ -1,5 +1,6 @@
 exports.up = knex =>
   knex.schema.createTable('flavors', table => {
+    table.increments('id').primary();
     table
       .integer('item')
       .references('id')

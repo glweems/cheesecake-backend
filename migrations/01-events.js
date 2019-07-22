@@ -9,5 +9,4 @@ exports.up = knex =>
     table.string('state');
     table.integer('zip');
   });
-
 exports.down = knex => knex.schema.dropTable('events');

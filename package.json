@@ -13,7 +13,8 @@
     "lint:fix": "eslint ./src/**/*.ts --fix",
     "watch-ts": "tsc -w -p ./",
     "migrate": "knex migrate:latest",
-    "seed": "knex seed:run"
+    "seed": "knex seed:run",
+    "reset": "npm run migrate && npm run seed"
   },
   "repository": {
     "type": "git",
