@@ -18,6 +18,7 @@ const get = async () => {
 
   return items.map(({ id, item }: DbMenu) => {
     return {
+      id,
       item,
       flavors: flavors.filter((flavor: DbFlavor) => flavor.item === id)
     };
