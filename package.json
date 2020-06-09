@@ -62,7 +62,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "nodemon": "^1.12.1",
     "prettier": "^1.18.2",
-    "ts-node-dev": "^1.0.0-pre.40",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.5.3"
   }
 }
