@@ -49,7 +49,7 @@
     "@types/knex": "0.16.1",
     "@types/lusca": "^1.6.0",
     "@types/morgan": "^1.7.32",
-    "@types/node": "^12.6.2",
+    "@types/node": "^14.0.13",
     "@types/validatorjs": "^3.7.0",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.12.0",
